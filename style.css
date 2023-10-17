@@ -76,10 +76,10 @@ div#background {
     padding: 10px; 
     display: inline-block; 
     border-radius: 5px;
-    animation: mymove 4s infinite; 
+    animation: invadermove 4s infinite; 
   }
   
-@keyframes mymove {
+@keyframes invadermove {
   0%   {top: 0px; width: 710px;}
   100% {top: 200px; width: 545px;}
 }
@@ -88,9 +88,7 @@ div#background {
     color: yellow;
     font-size: 42px;
   }
-
- 
-  #score {
+ #score {
     position: absolute;
     top: 20px;
     left: 20px;
@@ -119,10 +117,7 @@ div#background {
     border-radius: 45px;
     transition: background-color 5s;
     font-family: Georgia, 'Times New Roman', Times, serif;
-   
-  
-  }
-  
+   }
   
   #restart-button:hover {
     background-color: #45a049;

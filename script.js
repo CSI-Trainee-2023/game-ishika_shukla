@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function()//(Document Object Model)
+ {
   var hero = {
       left: 675,
       top: 700
@@ -9,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var missiles = [];
 
   var enemies = [
-     
+    // representing the enemy invaders with their initial positions.
       { left: 10, top: 100 },
       { left: 80, top: 100 },{ left: 150, top: 100 },
       { left: 225, top: 100 }, { left: 300, top: 100 },
@@ -42,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var isGameOver = false;
   var gameLoopId; // Store the ID of the game loop interval
 
+//whether the player is moving left, right, or firing a missile
 let left=false;
 let right=false;
 let fire =false;
@@ -60,11 +62,11 @@ function gamePlay(){
   }
   if(fire){
 
-    if(Math.random()<0.1)
+    if(Math.random()<0.4)
     {
       document.getElementById('shoot').play();
-      // Set the volume for the "shoot" sound effect to 50%
-      document.getElementById('shoot').volume = 0.5;
+      // Set the volume for  50%
+      document.getElementById('shoot').volume = 0.3 ;
 
         // Spacebar (fire)
       missiles.push({
@@ -75,33 +77,31 @@ function gamePlay(){
       }
   }
   // gameLoop();
-   if(checkEnemyReachedBottom())
+  if(checkEnemyReachedBottom())
   gameOver();
   drawHero();
 }
   
 document.onkeydown = function (e) {
-    // e.preventDefault(); // This prevents  default behavior of arrow keys
+   
 
     if (e.key === ' ') {
-      fire=true;
+        fire=true;
     }
 
     if (e.key === 'ArrowLeft') {
-        // Left
-        console.log(hero.left);
         left=true;
     }
 
     if (e.key === 'ArrowRight') {
-        // Right
         right=true;
     }
+    // to update the game state accordingly.
     gamePlay();
 };
-  document.onkeyup = function (e) {
-    // e.preventDefault(); // This prevents  default behavior of arrow keys
 
+//to stop the functioning of keys
+document.onkeyup = function (e) {
     if (e.key === ' ') {
       fire=false;
     }
@@ -120,42 +120,41 @@ document.onkeydown = function (e) {
 };
 
 
-//  moves  hero hori & ver on the screen.
+//  moves  hero on the screen.
   function drawHero() {
       document.getElementById('hero').style.left = hero.left + 'px';
   }
 
-  function drawMissiles() {
+function drawMissiles() {
       document.getElementById('missiles').innerHTML = ""
       for(var i = 0 ; i < missiles.length ; i++ ) {
           document.getElementById('missiles').innerHTML += `<div class='missile1' style='left:${missiles[i].left}px; top:${missiles[i].top}px'></div>`;
-      }
+      } 
   }
-
-  function moveMissiles() {
+function moveMissiles() {
       for(var i = 0 ; i < missiles.length ; i++ ) {
+        //subtracts 10 pixels from the current top position of the missile,  moving it upward on the screen.
           missiles[i].top = missiles[i].top - 10;
       }
   }
 
-  function drawEnemies() {
+function drawEnemies() {
       document.getElementById('enemies').innerHTML = ""
       for(var i = 0 ; i < enemies.length ; i++ ) {
           document.getElementById('enemies').innerHTML += `<div class='enemy' style='left:${enemies[i].left}px; top:${enemies[i].top}px'></div>`;
       }
   }
-
-  function moveEnemies() {
+function moveEnemies() {
       for(var i = 0 ; i < enemies.length ; i++ ) {
-          enemies[i].top = enemies[i].top + .05;
+        // speed at which the enemies descend.
+          enemies[i].top  += .04;
       }
   }
 
-  function updateScoreDisplay() {
+function updateScoreDisplay() {
     document.getElementById('score').textContent = 'Score: ' + score;
     if (score > highScore) {
       highScore = score;
-     
     }
   }
   updateScoreDisplay();
@@ -193,6 +192,7 @@ function collisionDetection() {
          ) {
 
           gameOver();
+          //return statement exits the function to prevent further collision checks.
           return;
         }
     }
@@ -232,17 +232,18 @@ function collisionDetection() {
       gameLoop();
     });
 }
+
 function resetGame() {
-    // Reset the game state
+  // restarts the entire web page
     location.reload();
    
   }
   
   // Add an event listener to the restart button
-  document.getElementById('restart-button').addEventListener('click', resetGame);
+document.getElementById('restart-button').addEventListener('click', resetGame);
   
 
-  function gameLoop() {
+function gameLoop() {
     if (!isGameOver) {
       drawEnemies();
       moveMissiles();
@@ -250,7 +251,7 @@ function resetGame() {
       moveEnemies();
       collisionDetection();
 
-      // Check if all enemies have been destroyed or if an enemy reaches the bottom
+      // Check if all enemies destroyed or reaches  bottom
       if (enemies.length === 0 || checkEnemyReachedBottom()) {
         gameOver();
       } 
@@ -262,17 +263,17 @@ function resetGame() {
   }
 
   function checkEnemyReachedBottom() {
-    // Define bottom of the screen
+    // Define bottom of screen
     const verticalThreshold = window.innerHeight;
 
-    // Check if any enemy has reached or passed the vertical threshold
+    // Check enemy reached or passed vertical threshold
     for (let i = 0; i < enemies.length; i++) {
       if (enemies[i].top >= verticalThreshold) {
-        return true; // An enemy has reached the bottom
+        return true; // enemy  reached  bottom
       }
     }
 
-    return false; // No enemy reached the bottom
+    return false; // No enemy reached bottom
   }
   
   gameLoop();
