@@ -4,6 +4,29 @@ document.addEventListener('DOMContentLoaded', function()//(Document Object Model
       left: 675,
       top: 700
   };
+
+  
+    const countdownScreen = document.getElementById('countdown-screen');
+    const countdownTimer = document.getElementById('countdown-timer');
+    const gameScreen = document.getElementById('game-screen');
+  
+    let countdown = 3;
+  
+  function updateCountdown() {
+      countdownTimer.textContent = countdown;
+  
+    if (countdown === 0) {
+        countdownScreen.style.display = 'none'; 
+        gameScreen.style.display = 'block'; 
+        gameLoop();
+      } else {
+        countdown--;
+        setTimeout(updateCountdown, 1000); 
+      }
+    }
+    updateCountdown();
+  
+   
   var score = 0;
   var highScore = 0;
 
@@ -40,6 +63,8 @@ document.addEventListener('DOMContentLoaded', function()//(Document Object Model
       { left: 1200, top: 335 },{ left: 1450, top: 335 },
 
   ];
+
+  
   var isGameOver = false;
   var gameLoopId; // Store the ID of the game loop interval
 
