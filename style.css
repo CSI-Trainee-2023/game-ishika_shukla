@@ -163,7 +163,7 @@ div#background {
     color: yellow;
     text-shadow: blueviolet 2px 2px 5px  ;
   }
-  #high-score {
+  #highScore {
     position: absolute;
     top: 20px; /* Adjust the top position as needed */
     right: 20px;

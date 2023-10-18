@@ -1,11 +1,10 @@
 document.addEventListener('DOMContentLoaded', function()//(Document Object Model)
  {
+
   var hero = {
       left: 675,
       top: 700
   };
-
-  
     const countdownScreen = document.getElementById('countdown-screen');
     const countdownTimer = document.getElementById('countdown-timer');
     const gameScreen = document.getElementById('game-screen');
@@ -28,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function()//(Document Object Model
   
    
   var score = 0;
-  var highScore = 0;
+  // var highScore = 0;
 
   var missiles = [];
 
@@ -108,8 +107,6 @@ function gamePlay(){
 }
   
 document.onkeydown = function (e) {
-   
-
     if (e.key === ' ') {
         fire=true;
     }
@@ -177,12 +174,16 @@ function moveEnemies() {
   }
 
 function updateScoreDisplay() {
-    document.getElementById('score').textContent = 'Score: ' + score;
-    if (score > highScore) {
-      highScore = score;
+  //local storage 
+    document.getElementById("score").textContent = 'Score: ' + score;
+    let highestScore = localStorage.getItem("highestScore") || 0;
+    document.getElementById("highScore").innerText = `Highest Score : ${highestScore}`;
+    if (score > highestScore) {
+      highestScore = score;
+      localStorage.setItem("highestScore", highestScore);
     }
   }
-  updateScoreDisplay();
+  
   
 function collisionDetection() {
       for (var enemy = 0; enemy < enemies.length; enemy++) {
