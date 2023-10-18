@@ -30,9 +30,43 @@ document.addEventListener('DOMContentLoaded', function()//(Document Object Model
   // var highScore = 0;
 
   var missiles = [];
+  function respawnEnemies() {
+    const newEnemies = [
+      { left: 10, top: 100 },
+      { left: 80, top: 100 },{ left: 150, top: 100 },
+      { left: 225, top: 100 }, { left: 300, top: 100 },
+      { left: 400, top: 100 }, { left: 500, top: 100 },
+      { left: 600, top: 100 }, { left: 700, top: 100 },
+      { left: 800, top: 100 }, { left: 900, top: 100 },
+      { left: 1000, top: 100 },{ left: 1100, top: 100 },
+      { left: 1200, top: 100 },{ left: 1300, top: 100 },
+      { left: 1375, top: 100 },  { left: 1450, top: 100 },
+
+      { left: 40, top: 175 },  { left: 120, top: 175 },
+      { left: 200, top: 175 },
+      { left: 320, top: 175 }, { left: 400, top: 175 },
+      { left: 480, top: 175 },{ left: 700, top: 175 },
+      { left: 800, top: 175 },{ left: 900, top: 175 },
+      { left: 1100, top: 175 },{ left: 1200, top: 175 },
+      { left: 1300, top: 175 },{ left: 1450, top: 175 },
+
+      { left: 80, top: 255 }, { left: 170, top: 255 },
+      { left: 359, top: 255 }, { left: 440, top: 255 },
+      { left: 750, top: 255 },{ left: 850, top: 255 },
+      { left: 1150, top: 255 },{ left: 1250, top: 255 },
+      { left: 1450, top: 255 },
+
+      { left: 120, top: 335 },
+      { left: 400, top: 335 },{ left: 800, top: 335 },
+      { left: 1200, top: 335 },{ left: 1450, top: 335 },
+
+    ];
+
+    enemies = [...enemies, ...newEnemies];
+}
 
   var enemies = [
-    // representing the enemy invaders with their initial positions.
+    // enemy invaders with their initial positions.
       { left: 10, top: 100 },
       { left: 80, top: 100 },{ left: 150, top: 100 },
       { left: 225, top: 100 }, { left: 300, top: 100 },
@@ -65,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function()//(Document Object Model
 
   
   var isGameOver = false;
-  var gameLoopId; // Store the ID of the game loop interval
+  var gameLoopId; 
 
 //whether the player is moving left, right, or firing a missile
 let left=false;
@@ -279,7 +313,7 @@ function gameLoop() {
 
       // Check if all enemies destroyed or reaches  bottom
       if (enemies.length === 0 || checkEnemyReachedBottom()) {
-        gameOver();
+        respawnEnemies();
       } 
       else {
         // Continue the game loop by scheduling the next frame
